@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Bosh sahifa</title>
+</head>
+<body>
+
+<p>{{ user.username }} | <a href="{% url 'logout' %}">Chiqish</a> | <a href="{% url 'myarticles' %}">Mening maqolalarim</a></p>
+<hr>
+
+<h2>Barcha maqolalar</h2>
+{% if articles %}
+    {% for article in articles %}
+        <div>
+            <h3><a href="{% url 'article_detail' article.slug %}">{{ article.title }}</a></h3>
+            <p>Muallif: {{ article.author.username }} | {{ article.created_at }}</p>
+            <p>{{ article.content|truncatewords:20 }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+{% else %}
+    <p>Hozircha maqolalar yo‘q.</p>
+{% endif %}
+<hr>
+<h2>Yangi maqola qo‘shish</h2>
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="Sarlavha.." required><br><br>
+    <textarea name="content" rows="5" placeholder="Maqola matni.." required></textarea><br><br>
+    <label for="tags">Teglar:</label><br>
+    <select name="tags" multiple>
+        {% for tag in Tag.objects.all %}
+            <option value="{{ tag.id }}">{{ tag.name }}</option>
+        {% endfor %}
+    </select><br><br>
+    <button type="submit">Saqlash</button>
+</form>
+</body>
+</html>

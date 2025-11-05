@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ article.title }}</title>
+</head>
+<body>
+
+<p><a href="{% url 'home' %}">Bosh sahifaga</a> | <a href="{% url 'logout' %}">Chiqish</a></p>
+
+<h1>{{ article.title }}</h1>
+<p>Muallif: {{ article.author.username }} | {{ article.created_at }}</p>
+<p>{{ article.content }}</p>
+
+{% if article.tags.all %}
+<p>Teglar:
+    {% for tag in article.tags.all %}
+        {{ tag.name }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+</p>
+{% endif %}
+
+</body>
+</html>

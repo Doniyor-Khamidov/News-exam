@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <title>O'chirish</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Maqolani o'chirish</h1>
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn delete">Ha</button>
+        <a href="{% url 'home' %}" class="btn cancel" style="text-decoration: none;">Yo'q</a>
+      </form>
+    </div>
+  </body>
+</html>
