@@ -3,7 +3,7 @@ from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from main.models import Article
+from main.models import Article, Tag
 
 
 class HomeView(LoginRequiredMixin, View):
@@ -11,9 +11,12 @@ class HomeView(LoginRequiredMixin, View):
 
     def get(self, request):
         articles = Article.objects.all().order_by('-created_at')
+        tags = Tag.objects.all()
         user = request.user
         context = {'articles': articles,
-                   'user': user
+                   'user': user,
+                   'tags': tags
+
                    }
         return render(request, 'home.html', context)
 
