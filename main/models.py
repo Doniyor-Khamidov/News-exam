@@ -12,7 +12,7 @@ class Tag(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=256, unique=True)
-    content = models.TextField()
+    context = models.TextField()
     tags = models.ManyToManyField(Tag)
     created_at = models.DateField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -85,7 +85,7 @@ class ArticleEditView(LoginRequiredMixin, View):
     def post(self, request, slug):
         article = get_object_or_404(Article, slug=slug, author=request.user)
         article.title = request.POST.get('title')
-        article.content = request.POST.get('content')
+        article.context = request.POST.get('context')
         tag_ids = request.POST.getlist('tags')
         article.tags.set(tag_ids)
         article.save()
